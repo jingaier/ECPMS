@@ -2,11 +2,14 @@
 * @Author: jingaier 
 * @Date: 2019-09-29 22:35:48  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-10-22 21:55:19
+ * @Last Modified time: 2019-11-06 22:19:30
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from 'page/home/index.jsx';
+import UserList from 'page/user/index.jsx';
+import Login from 'page/login/index.jsx';
+import ErrorPage from 'page/error/index.jsx';
 import Layout from 'component/layout/index.jsx';
 //import 'font-awesome/css/font-awesome.min.css';
 import {
@@ -40,16 +43,23 @@ class App extends React.Component{
         return(
             
             <Router>
-            <Layout>
-              <Switch>
-                <Route exact path="/" component={Home}></Route>
-                {/*<Redirect from="*" to="/"></Redirect>*/}
-                <Route  path="/product" component={Home}></Route>
-                <Route  path="/product-category" component={Home}></Route>
-              </Switch>
-            </Layout>
-          </Router>
-           
+            <Switch>
+              <Route  path="/login" component={Login}></Route>
+              <Route  path="/" render={props =>(
+                <Layout>
+                  <Switch>
+                    <Route exact path="/" component={Home}></Route>
+                    {/*<Redirect from="*" to="/"></Redirect>*/}
+                    <Route  path="/product" component={Home}></Route>
+                    <Route  path="/product-category" component={Home}></Route>
+                    <Route  path="/user/index" component={UserList}></Route>
+                    <Redirect from="/user" to="/user/index"></Redirect>
+                    <Route  component={ErrorPage}></Route>
+                  </Switch>
+                </Layout>
+              )}></Route>
+            </Switch>
+          </Router>   
         )
     }
 }

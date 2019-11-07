@@ -2,7 +2,7 @@
  * @Author: jingaier 
  * @Date: 2019-09-25 23:53:50 
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-10-22 22:36:37
+ * @Last Modified time: 2019-10-30 23:46:09
  */
 const path              = require('path');
 const webpack           = require('webpack');
@@ -18,7 +18,9 @@ module.exports = {
   resolve:{
     alias: {// 别名，减少层级写法
       page     : path.resolve(__dirname, 'src/page'),
-      component: path.resolve(__dirname, 'src/component')
+      component: path.resolve(__dirname, 'src/component'),
+      util: path.resolve(__dirname, 'src/util'),
+      server: path.resolve(__dirname, 'src/server')
     }
   },
   module:{
@@ -94,6 +96,16 @@ module.exports = {
     port              : 8086,
     historyApiFallback: {//报404 默认显示的页面路径
       index: '/dist/index.html'
+    },
+    proxy:{// 代理 后端域名，不然前端请求跨域
+      '/manage':{
+        target:'http://admintest.happymmall.com',
+        changeOrigin:true
+      },
+      '/user/logout.do':{
+        target:'http://admintest.happymmall.com',
+        changeOrigin:true
+      }
     }
   }
 };

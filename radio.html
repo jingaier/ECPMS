@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .radio_box {
+            display: inline-block;
+            position: relative;
+        }
+
+        .radio_box label {
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 2px solid #ef4949;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .radio_box input:checked+label:after {
+            content: '';
+            width: 9px;
+            height: 9px;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            background: #ef4949;
+            border-radius: 50%;
+        }
+        .check_box em {
+            margin: 0 0 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con">
+        <span class="radio_box">
+            <input type="radio" id="radio_1" name="radio">
+            <label for="radio_1"></label>
+            <em>选项1</em>
+        </span>
+        <span class="radio_box">
+            <input type="radio" id="radio_2" name="radio">
+            <label for="radio_2"></label>
+            <em>选项2</em>
+        </span>
+    </div>
+    <div class="con">
+        <span class="radio_box">
+            <input type="radio" id="radio_3" name="radio2">
+            <label for="radio_3"></label>
+            <em>选项1</em>
+        </span>
+        <span class="radio_box">
+            <input type="radio" id="radio_4" name="radio2">
+            <label for="radio_4"></label>
+            <em>选项2</em>
+        </span>
+    </div>
+    <script>
+    class Foo {
+        sayThis() {
+            console.log(this);
+        }
+        exec(fn) {
+            fn()
+        }
+        render() {
+            this.exec(this.sayThis.bind(this));
+        }
+    }
+    var foo = new Foo();
+    foo.render();
+    </script>
+</body>
+
+</html>

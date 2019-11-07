@@ -2,17 +2,32 @@
  * @Author: jingaier
  * @Date: 2019-10-21 17:14:15
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-10-22 20:59:42
+ * @Last Modified time: 2019-10-30 23:44:18
  */
 import React from "react";
 import { Link } from "react-router-dom";
+import User from 'server/userService.jsx';
+import Mutil  from 'util/mutil.jsx';
+const _mm = new Mutil();
+const _user  = new User();
 import "font-awesome/css/font-awesome.min.css";
 class NavTop extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username:_mm.getStorage('userInfo').username || ''
+    }
   }
   // 退出登录
-  onLogout() {}
+  onLogout() {
+    _user.logout().then(res => {
+      _mm.removeStorage('userInfo');
+      // this.props.history.push('/login')
+      window.location.href = '/login';
+    },(errMsg =>{
+      _mm.errorTips(errMsg);
+    }))
+  }
   render() {
     return (
       <div>
@@ -31,7 +46,7 @@ class NavTop extends React.Component {
                     aria-expanded="false"
                 >
                     <i className="fa fa-user fa-fw"></i>
-                    <span>welcom,YonSen</span>
+                    <span>欢迎、{this.state.username}</span>
                     <i className="fa fa-caret-down"></i>
                 </a>
                 <ul className="dropdown-menu dropdown-user">
