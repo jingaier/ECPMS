@@ -1,0 +1,43 @@
+.page-header-right {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+}
+.search-wrap {
+    margin-bottom: 20px;
+}
+.opear{
+    margin-right: 5px;
+}
+/* 上传图片 样式 */
+$sub-img-size : 80px;
+.img-con{
+    margin-bottom: 10px;
+    .sub-img{
+        width:$sub-img-size;
+        height:$sub-img-size;
+        margin-right: 15px;
+        float: left;
+        position: relative;
+        .img{
+            width:100%;
+            height:100%;
+            display: block;
+        }
+        .fa{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            cursor: pointer;
+            text-align: center;
+            width: $sub-img-size;
+            height: $sub-img-size;
+            line-height: $sub-img-size;
+            background: rgba(0,0,0,.2);
+            font-size: 50px;
+            font-weight: 400;
+            color: #aaa;
+        }
+    }
+}

@@ -42,6 +42,10 @@ class Mutil {
         //result = ['param=123','','123']
         return result ? decodeURIComponent(result) : null;
     }
+    // 成功提示
+    successTips(successMsg){
+        alert(successMsg || '操作成功！')
+    }
     // 错误提示
     errorTips(errMsg){
         alert(errMsg || '错误')
