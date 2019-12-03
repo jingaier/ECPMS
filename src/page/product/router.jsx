@@ -1,13 +1,14 @@
 /* * @Author: jingaier  
 * @Date: 2019-11-07 22:17:53  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-11-12 23:34:59
+ * @Last Modified time: 2019-12-03 10:31:31
 *分路由（不然 总路由内容过于庞大） 
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ProductList from 'page/product/index.jsx';
 import ProductSave from 'page/product/save.jsx';
+import ProductDetail from 'page/product/detail.jsx';
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,7 +21,8 @@ import {
         return(
         <Switch>              
             <Route  path="/product/index" component={ProductList}></Route>
-            <Route  path="/product/save" component={ProductSave}></Route>
+            <Route  path="/product/save/:pid?" component={ProductSave}></Route>
+            <Route  path="/product/detail/:pid" component={ProductDetail}></Route>
             <Redirect exact from="/product" to="/product/index"></Redirect>
         </Switch>
         )

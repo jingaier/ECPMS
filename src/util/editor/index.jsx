@@ -1,7 +1,7 @@
 /* * @Author: jingaier  
 * @Date: 2019-11-19 22:22:28  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-11-20 00:03:59
+ * @Last Modified time: 2019-12-02 23:00:41
 * 二次封装simditor 富文本编辑器
 */
 import React from 'react';
@@ -13,6 +13,13 @@ class Editor extends React.Component{
     }
     componentDidMount() {
         this.loadEditor();
+    }
+    componentWillReceiveProps(nextProps){
+        let detailChange = this.props.defaultDetail !== nextProps.defaultDetail;//不相等的时候才调用这方法
+        if(detailChange){
+            this.simditor.setValue(nextProps.defaultDetail);
+        }
+        
     }
     //加载富文本编辑器
     loadEditor(){

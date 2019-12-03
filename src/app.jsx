@@ -2,12 +2,13 @@
 * @Author: jingaier 
 * @Date: 2019-09-29 22:35:48  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-11-07 22:38:36
+ * @Last Modified time: 2019-12-03 17:48:20
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from 'page/home/index.jsx';
 import UserList from 'page/user/index.jsx';
+import OrderList from 'page/order/index.jsx';
 import ProductRouter from 'page/product/router.jsx';
 import Login from 'page/login/index.jsx';
 import ErrorPage from 'page/error/index.jsx';
@@ -33,6 +34,8 @@ class App extends React.Component{
                     <Route exact path="/" component={Home}></Route>
                     {/*<Redirect from="*" to="/"></Redirect>*/}
                     <Route  path="/product" component={ProductRouter}></Route>
+                    <Route  path="/order/index" component={OrderList}></Route>
+                    <Redirect from="/order" to="/order/index"></Redirect>
                     <Route  path="/product-category" component={Home}></Route>
                     <Route  path="/user/index" component={UserList}></Route>
                     <Redirect from="/user" to="/user/index"></Redirect>

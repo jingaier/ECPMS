@@ -1,7 +1,7 @@
 /* * @Author: jingaier  
 * @Date: 2019-11-12 23:49:12  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-11-14 16:05:33
+ * @Last Modified time: 2019-12-03 17:01:28
 * 二级联动组件
 */
 import React from 'react';
@@ -21,7 +21,31 @@ class Selector extends React.Component{
         }
     }
     componentDidMount() {
+        console.log('detail',this.props.readOnly)
         this.loadFirstCategory();
+    }
+    componentWillReceiveProps(nextProps){
+        console.log('11=',this.props)
+        let categoryIdChange= nextProps.categoryId !== this.props.categoryId,
+            parentCategoryIdChange = nextProps.parentCategoryId !== this.props.parentCategoryId; 
+        
+        //数据没有变化时，不处理
+        if(!categoryIdChange && !parentCategoryIdChange){
+            return;
+        }
+        if(nextProps.parentCategoryId === 0){//只有一级分类
+            this.setState({
+                firstCategoryId:nextProps.categoryId,
+                secondCategoryId:0,
+            })
+        }else{
+            this.setState({
+                firstCategoryId:nextProps.parentCategoryId,
+                secondCategoryId:nextProps.categoryId,
+            },(e)=>{
+                parentCategoryIdChange && this.loadSecondCategory()// 二级选项列表
+            })
+        }
     }
     // 一级商品分类
     loadFirstCategory(){
@@ -33,7 +57,7 @@ class Selector extends React.Component{
             _mm.errorTips(errMsg)
         })
     }
-    // 一级商品分类
+    // 二级商品分类
     loadSecondCategory(){
         _product.getFirstCategory(this.state.firstCategoryId).then(res => {
             this.setState({
@@ -46,6 +70,9 @@ class Selector extends React.Component{
     // 选中一级分类项
     onFirstCategoryChange(e){
         let newValue = e.target.value || 0;
+        if(this.props.readOnly){// 如果是 查看详情 则 点击选项无效
+            return;
+        }
         this.setState({
             firstCategoryId:newValue,
             secondCategoryId:0,
@@ -59,6 +86,9 @@ class Selector extends React.Component{
     // 选中二级分类项
     onSecondCategoryChange(e){
         let newValue = e.target.value || 0;
+        if(this.props.readOnly){// 如果是 查看详情 则 点击选项无效
+            return;
+        }
         this.setState({
             secondCategoryId:newValue,
             
@@ -81,6 +111,8 @@ class Selector extends React.Component{
         return(            
             <div className="col-md-10">
                 <select type="password" className="form-control cate-select"
+                value={this.state.firstCategoryId}
+                disabled={this.props.readOnly?true:false}
                 onChange={(e)=>this. onFirstCategoryChange(e)}
                 >
                     <option value="">请选择一级品类</option>
@@ -90,14 +122,16 @@ class Selector extends React.Component{
                 </select>
                 {
                     this.state.secondCategoryList.length?
-                    (<select type="password" className="form-control cate-select"
+                    <select type="password" className="form-control cate-select"
+                    value ={this.state.secondCategoryId}
+                    disabled={this.props.readOnly?true:false}
                     onChange={(e)=>this. onSecondCategoryChange(e)}
                     >
                         <option value="">请选择二级品类</option>
                         {
                             this.state.secondCategoryList.map((category,index)=><option key={index} value={category.id}>{category.name}</option>)
                         }
-                    </select>):null
+                    </select>:null
                 }
             </div>
         )

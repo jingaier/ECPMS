@@ -102,6 +102,15 @@ class Product{
             'data':product
         })
     }
-
+    // 商品详情
+    getProduct(productId){
+        return _mm.request({
+            'type':'get',
+            'url':'/manage/product/detail.do',
+            'data':{
+                productId:productId || 0
+            }
+        })
+    }
 }
 export default Product;

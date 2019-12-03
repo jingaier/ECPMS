@@ -2,7 +2,7 @@
 * @Author: jingaier  
 * @Date: 2019-10-21 17:14:15  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-11-05 23:12:50
+ * @Last Modified time: 2019-12-03 17:47:14
 */
 import React from 'react';
 import { Link ,NavLink} from "react-router-dom";
@@ -44,7 +44,7 @@ class NavSide extends React.Component{
                         </Link>
                         <ul className="nav nav-second-level collapse in">
                             <li>
-                            <NavLink activeClassName="active-menu" to="/order">订单管理</NavLink> 
+                            <NavLink activeClassName="active-menu" to="/order/index">订单管理</NavLink> 
                             </li>
                         </ul>
                     </li>
