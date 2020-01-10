@@ -1,7 +1,7 @@
 /* * @Author: jingaier  
 * @Date: 2019-12-03 17:18:40  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-12-03 17:53:40
+ * @Last Modified time: 2020-01-07 23:15:33
 * 订单管理列表页 
 */
 
@@ -9,12 +9,12 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import Pagination from 'util/pagination/index.jsx';
 import TableList from 'util/TableList/index.jsx';
-import ListSearch from '../product/list-search.jsx';
-import Product from 'server/productService.jsx';
+import ListSearch from '../order/orderListSearch.jsx';
+import Order from 'server/OrderService.jsx';
 import Mutil  from 'util/mutil.jsx';
 //import './index.scss';
 const _mm = new Mutil();
-const _product  = new Product();
+const _order  = new Order();
  class OrderList extends React.Component{
      constructor(props) {
          super(props);  
@@ -23,27 +23,28 @@ const _product  = new Product();
             pageNum:1,
             total:0,
             value:'',
-            listType:'list'
+            listType:'list' // list 或 search
          }
          this.onSearch = this.onSearch.bind(this);
      }
      componentDidMount() {
-         //this.loadProductList()
+         this.loadOrderList()
      }
      //数据渲染
-     loadProductList(){
+     loadOrderList(){
          let {listType,pageNum} = this.state;
          console.log(listType,pageNum);
          let listParam = {
              listType:listType,
              pageNum:pageNum
          }
+         // 如果是搜索的话，需要传入搜索类型和搜索关键字
          if(listType === 'search'){
              let {searchType,searchKeyword} = this.state;
-             listParam.searchType = searchType;
-             listParam.keyword = searchKeyword;
+             listParam.orderNo = this.state.orderNo;
+             //listParam.keyword = searchKeyword;
          }
-        _product.getProductList(listParam).then(res =>{
+        _order.getOrdertList(listParam).then(res =>{
             this.setState(res)
          },errMsg=>{
             this.setState({
@@ -57,7 +58,7 @@ const _product  = new Product();
         this.setState({
             pageNum:pageNum
         },()=>{
-            this.loadProductList()
+            this.loadOrderList()
         })
      }
      // 表单
@@ -67,25 +68,10 @@ const _product  = new Product();
             value : e.target.value
         })
     }
-    //切换商品状态
-    onSetProductStatus(e,productId,curStatus){
-        let newStatus = curStatus === 1?2:1;
-        let confirmTips = curStatus === 1?'确定要下架该商品？':'确定要上架该商品？';
-        if(window.confirm(confirmTips)){
-            _product.setProductStatus({
-                productId:productId,
-                status:newStatus
-            }).then(res =>{
-                _mm.successTips(res);
-                this.loadProductList();
-            },errMsg =>{
-                _mm.errorTips(errMsg);
-            })
-        }
-    }
+    
      // 查询
-     onSearch(searchType,searchKeyword){
-         let listType = searchKeyword === ''?'list':'search';
+     onSearch(orderNumber){
+         let listType = orderNumber === ''?'list':'search';
          /* let searchInfo = {
             [searchType]:searchKeyword
          } */
@@ -93,10 +79,10 @@ const _product  = new Product();
          this.setState({
              listType:listType,
              pageNum:1,
-             searchType:searchType,
-             searchKeyword:searchKeyword
+             orderNo:orderNumber,
+            //  searchKeyword:searchKeyword
          },()=>{
-            this.loadProductList();
+            this.loadOrderList();
          })
         
      }
@@ -116,29 +102,24 @@ const _product  = new Product();
                         <h1 className="page-header">订单管理</h1>
                     </div>
                 </div>
-                <ListSearch onSearch={this.onSearch}></ListSearch>
+                <ListSearch onSearch={(orderNumber) => this.onSearch(orderNumber)}></ListSearch>
                 <TableList tableHeads={tableHeads}>
                 {
-                    this.state.list.map((product,index)=>{
+                    this.state.list.map((order,index)=>{
                         return <tr key={index}>
-                           <td>{product.id}</td>
                            <td>
-                                <span>{product.name}</span>
-                                <br></br>
-                                <span>{product.subtitle}</span>
+                           <Link className="btn opear" to={`/order/detail/${order.orderNo}`}>{order.orderNo}</Link>
                            </td>
-                           <td>{product.price}</td>
+                           <td>{order.receiverName}</td>
+                           <td>{order.statusDesc}</td>
                            <td>
-                               {product.status === 1?'在售':'已下架'}
+                               ￥{order.payment}
                            </td>
+                           <td>{order.createTime}</td>
                            <td>
-                               <a className="btn btn-xs btn-warning opear" onClick={(e)=>this.onSetProductStatus(e,product.id,product.status)}>{product.status === 1?'下架':'上架'}</a>
-                               <Link className="btn opear" to={`/product/detail/${product.id}`}>查看</Link>
-                               <Link className="btn opear" to={`/product/save/${product.id}`}>编辑</Link>
+                               <Link className="btn opear" to={`/order/detail/${order.orderNo}`}>详情</Link>
                            </td>
-                           <td> 
-                               <Link className="btn opear" to={`/product/order/${product.id}`}>查看</Link>                        
-                           </td>
+                           
                         </tr>
                     })
                 }

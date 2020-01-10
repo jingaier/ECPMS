@@ -79,6 +79,9 @@
     }
     var foo = new Foo();
     foo.render();
+    var description = '<div class="ie-fix"><p class="reader-word-layer reader-word-s2-2" style="width:36px;height:155px;line-height:155px;top:689px;left:4698px;z-index:0;font-family:simsun;"></p><p class="reader-word-layer reader-word-s2-2" style="width:36px;height:155px;line-height:155px;top:12538px;left:1298px;z-index:1;font-family:simsun;"> </p><p class="reader-word-layer reader-word-s2-2" style="width:109px;height:155px;line-height:155px;top:12540px;left:4661px;z-index:2;letter-spacing:0.8899999999999999px;false">2 </p><p class="reader-word-layer reader-word-s2-4" style="width:2316px;height:192px;line-height:192px;top:1180px;left:1298px;z-index:3;letter-spacing:0.74px;false">二、探究交流，解决问题。</p><p class="reader-word-layer reader-word-s2-3" style="width:48px;height:192px;line-height:192px;top:1180px;left:3615px;z-index:4;> </p><p class="reader-word-layer reader-word-s2-11" style="width:96px;height:192px;line-height:192px;top:1556px;left:1298px;z-index:5;">1</p><p class="reader-word-layer reader-word-s2-4" style="width:192px;height:192px;line-height:192px;top:1556px;left:1396px;z-index:6;">、</p><p class="reader-word-layer reader-word-s2-5" style="width:6522px;height:192px;line-height:192px;top:1556px;left:1575px;z-index:7;letter-spacing:-0.42999999999999994px;false">人们在日常生活中产生的垃圾叫做生活垃圾，下面的扇形统计图记录了各类垃</p><p class="reader-word-layer reader-word-s2-5" style="width:1346px;height:192px;line-height:192px;top:1929px;left:1298px;z-index:8;false">圾所占的比例；</p></div>'
+    var t = description.replace(/<(?!img).*?>/g, "")
+    console.log(t);
     </script>
 </body>
 

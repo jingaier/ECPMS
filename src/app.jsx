@@ -2,7 +2,7 @@
 * @Author: jingaier 
 * @Date: 2019-09-29 22:35:48  
  * @Last Modified by: jingaier
- * @Last Modified time: 2019-12-03 17:48:20
+ * @Last Modified time: 2020-01-07 23:43:12
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,6 +13,7 @@ import ProductRouter from 'page/product/router.jsx';
 import Login from 'page/login/index.jsx';
 import ErrorPage from 'page/error/index.jsx';
 import Layout from 'component/layout/index.jsx';
+import OrderDetail from 'page/order/detail.jsx';
 //import 'font-awesome/css/font-awesome.min.css';
 import {
     BrowserRouter as Router,
@@ -35,6 +36,7 @@ class App extends React.Component{
                     {/*<Redirect from="*" to="/"></Redirect>*/}
                     <Route  path="/product" component={ProductRouter}></Route>
                     <Route  path="/order/index" component={OrderList}></Route>
+                    <Route  path="/order/detail/:orderNumber" component={OrderDetail}></Route>
                     <Redirect from="/order" to="/order/index"></Redirect>
                     <Route  path="/product-category" component={Home}></Route>
                     <Route  path="/user/index" component={UserList}></Route>

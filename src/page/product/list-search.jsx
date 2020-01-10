@@ -1,5 +1,5 @@
 /* * @Author: jingaier  * @Date: 2019-11-11 22:56:25  * @Last Modified by: jingaier  * @Last Modified time: 2019-11-11 22:56:25  */
-/* * @Author: jingaier  * @Date: 2019-11-07 15:27:52  * @Last Modified by: jingaier  * @Last Modified time: 2019-11-07 15:27:52  */
+
 import React from 'react';
 import Product from 'server/productService.jsx';
 import Mutil  from 'util/mutil.jsx';
